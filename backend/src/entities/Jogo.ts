@@ -2,10 +2,12 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  OneToMany,
 } from 'typeorm'
+import { Avaliacao } from './Avaliacao.js'
 
-@Entity('games')
-export class Game {
+@Entity('jogos')
+export class Jogo {
   @PrimaryGeneratedColumn()
   id!: number
 
@@ -21,6 +23,9 @@ export class Game {
   @Column('decimal', { precision: 10, scale: 2 })
   preco!: number
 
-  @Column('text', { nullable: true })
+  @Column('text')
   capaUrl!: string
+
+  @OneToMany(() => Avaliacao, avaliacao => avaliacao.jogo)
+  avaliacoes!: Avaliacao[]
 }
