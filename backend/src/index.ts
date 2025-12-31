@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import express from 'express';
-import gameRoutes from './routes/gameRoutes.js';
+import path from 'path'
+import jogoRoutes from './routes/jogoRoutes.js';
 import { AppDataSource } from './config/data-source.js';
 
 async function startServer() {
@@ -11,7 +12,13 @@ async function startServer() {
     const port = 3000
   
     app.use(express.json())
-    app.use('/jogos', gameRoutes)
+
+    app.use(
+      '/uploads',
+      express.static(path.resolve(process.cwd(), 'uploads'))
+    )
+
+    app.use('/jogos', jogoRoutes)
   
     
     app.listen(port, () => {
